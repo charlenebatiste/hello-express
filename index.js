@@ -44,12 +44,23 @@ app.get('/rockets', (req, res) => {
     })
 })
 
+app.get('/greet/:name', (req, res) => {
+    console.log(req.params); // req.params(object) = :name
+    res.send(`Hello ${req.params.name}`);
+})
 
-app.listen(8080, () => {
-    console.log(`server is listening on PORT 8080`);
-    // arrow function that checks to make sure server is active
-});
 
+app.get('/github/:username', (req, res) => {
+    const { username } = req.params; // destructuring
+    axios.get(`https://api.github.com/users/${username}`)
+    .then(response => {
+        console.log(response.data);
+        res.json(response.data);
+    })
+    .catch(error => {
+        console.log(error);
+    });
+})
 
 
 const PORT = process.env.PORT || 8080;
@@ -58,4 +69,5 @@ const PORT = process.env.PORT || 8080;
 
 app.listen(PORT, () => {
     console.log(`Server is listening on ${PORT}`);
+     // arrow function that checks to make sure server is active
 });
