@@ -5,7 +5,7 @@ const express = require('express');
 const app = express();
 // makes an instance of an app that uses the express package
 
-
+const axios = require('axios');
 // Home route
 
 app.get('/', function(req,res){
@@ -29,14 +29,30 @@ app.get('/sei', function(req,res){
 
 // '/sei' makes new location that you can get to with /sei at the end of url
 
-app.listen(8000, () => {
-    console.log(`server is listening on PORT 8000`);
+app.get('/rockets', (req, res) => {
+    // access an API and return some data
+    axios.get('https://api.spacexdata.com/v3/rockets')
+    .then(response => {
+        // within this block of code
+        // --start--
+        console.log(response.data);
+        res.send(response.data);
+        // --finish--
+    })
+    .catch(error => {
+        console.log(error);
+    })
+})
+
+
+app.listen(8080, () => {
+    console.log(`server is listening on PORT 8080`);
     // arrow function that checks to make sure server is active
 });
 
 
 
-const PORT = process.env.PORT || 8000;
+const PORT = process.env.PORT || 8080;
 
 // process.env.PORT will be the production location 
 
