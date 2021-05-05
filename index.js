@@ -29,6 +29,7 @@ app.get('/sei', function(req,res){
 
 // '/sei' makes new location that you can get to with /sei at the end of url
 
+
 app.get('/rockets', (req, res) => {
     // access an API and return some data
     axios.get('https://api.spacexdata.com/v3/rockets')
@@ -62,6 +63,14 @@ app.get('/github/:username', (req, res) => {
     });
 })
 
+app.get('/*', (req, res) => {
+    console.log(req.params);
+    res.send('404');
+})
+
+// 404 needs to be last route
+
+
 
 const PORT = process.env.PORT || 8080;
 
@@ -71,3 +80,5 @@ app.listen(PORT, () => {
     console.log(`Server is listening on ${PORT}`);
      // arrow function that checks to make sure server is active
 });
+
+// all routes go BEFORE app.listen
